@@ -20,10 +20,14 @@ public class CruddemoApplication {
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO){
 		return runner -> {
 //			createStudent(studentDAO);
-//			createMultipleStudents(studentDAO);
+			createMultipleStudents(studentDAO);
 //			readStudent(studentDAO);
 //			findAllStudents(studentDAO);
-			findByFirstName(studentDAO);
+//			findByFirstName(studentDAO);
+//			update(studentDAO);
+//			updateTogether(studentDAO);
+//			delete(studentDAO);
+//			multiDelete(studentDAO);
 		};
 	}
 	private void findByFirstName(StudentDAO studentDAO) {
@@ -90,6 +94,41 @@ public class CruddemoApplication {
 
 		//display id of the saved student
 		System.out.println("Saved student. Generated id: " + tempStudent.getId());
+	}
+
+	private void update(StudentDAO studentDAO) {
+		//retrieve student based on the id: primary key
+		Student tempStudent = new Student();
+		tempStudent.setId(1);
+
+		Student myStudent = studentDAO.findById(tempStudent.getId());
+
+		myStudent.setFirstName("Testing");
+		myStudent.setLastName("Test");
+		myStudent.setEmail("testEmail@gmail.com");
+
+		//update the student
+		studentDAO.update(myStudent);
+
+		//display the updated student
+		System.out.println("Updated student: " + myStudent);
+	}
+
+	private void updateTogether(StudentDAO studentDAO){
+		Student tempStudent = new Student();
+		tempStudent.setLastName("TogetherName");
+		studentDAO.updateTogether(tempStudent);
+	}
+
+	private void delete(StudentDAO studentDAO){
+		int theId = 3;
+		studentDAO.delete(theId);
+		System.out.println("Deleted student id: " + theId);
+	}
+
+	private void multiDelete(StudentDAO studentDAO){
+		String theLastName = "TogetherName";
+		studentDAO.multiDelete(theLastName);
 	}
 
 }

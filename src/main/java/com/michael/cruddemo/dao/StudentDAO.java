@@ -13,4 +13,12 @@ public interface StudentDAO {
     List<Student> findAll();
 
     List<Student> findByFirstName(String theFirstName);
+
+    void update(Student theStudent);
+
+    void updateTogether(Student theStudent);
+
+    void delete(int theId);
+
+    void multiDelete(String theFirstName);
 }
